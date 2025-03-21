@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Deficit Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .calc-zone {
+            flex: 1;
+            padding: 40px;
+            background: linear-gradient(135deg, #4a90e2, #357ABD);
+            color: white;
+            min-width: 300px;
+        }
+
+        .content {
+            flex: 1;
+            padding: 40px;
+            background: white;
+            color: #333;
+            min-width: 300px;
+        }
+
+        .calculator h2, .content h3 {
+            text-align: center;
+        }
+
+        .calculator input, .calculator button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .calculator input {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .calculator .calculate-btn {
+            background: #4a90e2;
+            color: white;
+            cursor: pointer;
+        }
+
+        .calculator .calculate-btn:hover {
+            background: #357ABD;
+        }
+
+        .calculator .clear-btn {
+            background: white;
+            color: black;
+            margin-top: 10px;
+            width: 50%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .calculator input, .calculator button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calc-zone">
+            <div class="calculator">
+                <h2>Calorie Deficit Calculator</h2>
+                <input type="number" id="tdee" placeholder="Enter your TDEE (kcal)">
+                <input type="number" id="weightLoss" placeholder="Desired weight loss per week (kg)">
+                <button class="calculate-btn" onclick="calculateDeficit()">Calculate</button>
+                <button class="clear-btn" onclick="clearInputs()">Clear</button>
+                <div id="result"></div>
+            </div>
+        </div>
+        <div class="content">
+            <h3>What is a Calorie Deficit?</h3>
+            <p>A calorie deficit occurs when you consume fewer calories than your body needs to maintain its current weight.</p>
+            <h3>How to Calculate?</h3>
+            <p>To lose weight, you need to consume fewer calories than your Total Daily Energy Expenditure (TDEE). A deficit of 7700 kcal results in approximately 1 kg of fat loss.</p>
+        </div>
+    </div>
+    <script>
+        function calculateDeficit() {
+            let tdee = parseFloat(document.getElementById('tdee').value);
+            let weightLoss = parseFloat(document.getElementById('weightLoss').value);
+
+            if (!tdee || !weightLoss) {
+                document.getElementById('result').innerHTML = 'Enter valid values!';
+                return;
+            }
+
+            let dailyDeficit = (weightLoss * 7700) / 7;
+            let newCaloricIntake = tdee - dailyDeficit;
+
+            document.getElementById('result').innerHTML = `Daily Deficit: ${dailyDeficit.toFixed(2)} kcal <br> New Daily Calorie Intake: ${newCaloricIntake.toFixed(2)} kcal`;
+        }
+
+        function clearInputs() {
+            document.querySelectorAll('.calculator input').forEach(input => input.value = '');
+            document.getElementById('result').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lean Body Mass Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .calc-zone {
+            flex: 1;
+            padding: 40px;
+            background: linear-gradient(135deg, #4a90e2, #357ABD);
+            color: white;
+            min-width: 300px;
+        }
+
+        .content {
+            flex: 1;
+            padding: 40px;
+            background: white;
+            color: #333;
+            min-width: 300px;
+        }
+
+        .calculator h2, .content h3 {
+            text-align: center;
+        }
+
+        .calculator input, .calculator button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .calculator input {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .gender-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .gender-container label {
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .calculator .calculate-btn {
+            background: #4a90e2;
+            color: white;
+            cursor: pointer;
+        }
+
+        .calculator .calculate-btn:hover {
+            background: #357ABD;
+        }
+
+        .calculator .clear-btn {
+            background: white;
+            color: black;
+            margin-top: 10px;
+            width: 50%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .gender-container {
+                flex-direction: column;
+            }
+
+            .calculator input, .calculator button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calc-zone">
+            <div class="calculator">
+                <h2>Lean Body Mass Calculator</h2>
+                <input type="number" id="weight" placeholder="Weight (kg)" required>
+                <input type="number" id="height" placeholder="Height (cm)" required>
+                <div class="gender-container">
+                    <p>Gender</p>
+                    <label><input type="radio" name="gender" value="male" checked> Male</label>
+                    <label><input type="radio" name="gender" value="female"> Female</label>
+                </div>
+                <button class="calculate-btn" onclick="calculateLBM()">Calculate</button>
+                <button class="clear-btn" onclick="clearInputs()">Clear</button>
+                <div id="result"></div>
+            </div>
+        </div>
+        <div class="content">
+            <h3>What is Lean Body Mass?</h3>
+            <p>Lean Body Mass (LBM) is the weight of your body excluding fat. It includes muscles, bones, water, and other tissues.</p>
+            <h3>How is LBM Calculated?</h3>
+            <p>The most commonly used formulas for LBM estimation are:</p>
+            <ul>
+                <li><strong>For Men:</strong> LBM = (0.407 × weight) + (0.267 × height) - 19.2</li>
+                <li><strong>For Women:</strong> LBM = (0.252 × weight) + (0.473 × height) - 48.3</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        function calculateLBM() {
+            let weight = parseFloat(document.getElementById('weight').value);
+            let height = parseFloat(document.getElementById('height').value);
+            let gender = document.querySelector('input[name="gender"]:checked').value;
+
+            if (!weight || !height) {
+                document.getElementById('result').innerHTML = 'Enter valid values!';
+                return;
+            }
+
+            let lbm;
+            if (gender === "male") {
+                lbm = (0.407 * weight) + (0.267 * height) - 19.2;
+            } else {
+                lbm = (0.252 * weight) + (0.473 * height) - 48.3;
+            }
+
+            document.getElementById('result').innerHTML = `Lean Body Mass: ${lbm.toFixed(2)} kg`;
+        }
+
+        function clearInputs() {
+            document.querySelectorAll('.calculator input').forEach(input => input.value = '');
+            document.getElementById('result').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

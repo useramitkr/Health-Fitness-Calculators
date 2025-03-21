@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMR Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .calc-zone {
+            flex: 1;
+            padding: 40px;
+            background: linear-gradient(135deg, #4a90e2, #357ABD);
+            color: white;
+            min-width: 300px;
+        }
+
+        .content {
+            flex: 1;
+            padding: 40px;
+            background: white;
+            color: #333;
+            min-width: 300px;
+        }
+
+        .calculator h2, .content h3 {
+            text-align: center;
+        }
+
+        .calculator input, .calculator button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .calculator input {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .gender-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .gender-container label {
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .calculator .calculate-btn {
+            background: #4a90e2;
+            color: white;
+            cursor: pointer;
+        }
+
+        .calculator .calculate-btn:hover {
+            background: #357ABD;
+        }
+
+        .calculator .clear-btn {
+            background: white;
+            color: black;
+            margin-top: 10px;
+            width: 50%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .gender-container {
+                flex-direction: column;
+            }
+
+            .calculator input, .calculator button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calc-zone">
+            <div class="calculator">
+                <h2>Basal Metabolic Rate (BMR) Calculator</h2>
+                <input type="number" id="weight" placeholder="Weight (kg)">
+                <input type="number" id="height" placeholder="Height (cm)">
+                <input type="number" id="age" placeholder="Age (years)">
+                <div class="gender-container">
+                    <p>Gender</p>
+                    <label><input type="radio" name="gender" value="male" checked> Male</label>
+                    <label><input type="radio" name="gender" value="female"> Female</label>
+                </div>
+                <button class="calculate-btn" onclick="calculateBMR()">Calculate</button>
+                <button class="clear-btn" onclick="clearInputs()">Clear</button>
+                <div id="result"></div>
+            </div>
+        </div>
+        <div class="content">
+            <h3>What is Basal Metabolic Rate (BMR)?</h3>
+            <p>BMR is the number of calories your body needs to perform basic life-sustaining functions, such as breathing and digestion.</p>
+            <h3>How to Interpret Your BMR:</h3>
+            <ul>
+                <li><strong>Higher BMR:</strong> Your body burns more calories at rest.</li>
+                <li><strong>Lower BMR:</strong> Your body burns fewer calories at rest, meaning you may need fewer calories in your diet.</li>
+            </ul>
+            <p>To maintain, gain, or lose weight, consider your total daily energy expenditure (TDEE), which is BMR adjusted for activity level.</p>
+        </div>
+    </div>
+    <script>
+        function calculateBMR() {
+            let weight = parseFloat(document.getElementById('weight').value);
+            let height = parseFloat(document.getElementById('height').value);
+            let age = parseInt(document.getElementById('age').value);
+            let gender = document.querySelector('input[name="gender"]:checked').value;
+
+            if (!weight || !height || !age) {
+                document.getElementById('result').innerHTML = 'Enter valid values!';
+                return;
+            }
+
+            let bmr;
+            if (gender === "male") {
+                bmr = 88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age);
+            } else {
+                bmr = 447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age);
+            }
+
+            document.getElementById('result').innerHTML = `Your BMR: ${bmr.toFixed(2)} kcal/day`;
+        }
+
+        function clearInputs() {
+            document.querySelectorAll('.calculator input').forEach(input => input.value = '');
+            document.getElementById('result').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
