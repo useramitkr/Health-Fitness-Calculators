@@ -1,0 +1,132 @@
+.bmi-calc-sec {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+    position: relative;
+    margin-top: -50px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    max-width: 1200px;
+    width: 100%;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.calc-zone {
+    flex: 1;
+    min-width: 350px;
+    padding: 40px;
+    background: linear-gradient(135deg, #4a90e2, #357ABD);
+    color: white;
+}
+
+.calculator {
+    text-align: left;
+}
+
+.calculator h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    /* text-align: center; */
+}
+
+.calculator input,
+.calculator select,
+.calculator button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.calculator input,
+.calculator select {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+}
+
+.calculator select {
+    width: 100%;
+}
+
+.calculator button {
+    background: #1e4779;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.calculator button:hover {
+    background: #2C3F51;
+    transform: translateY(-2px);
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.content {
+    flex: 1;
+    min-width: 350px;
+    padding: 40px;
+    background: white;
+    color: #333;
+    margin: auto 0;
+}
+
+.content h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #4a90e2;
+}
+
+.content p,
+.content ul {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.content ul li {
+    margin-bottom: 10px;
+    list-style: none;
+}
+
+.content ul li::before {
+    content: "\2022";
+    color: #4a90e2;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+}
+
+@media (max-width: 768px) {
+    body {
+        height: auto;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .calc-zone,
+    .content {
+        padding: 20px 50px 20px 20px;
+    }
+}

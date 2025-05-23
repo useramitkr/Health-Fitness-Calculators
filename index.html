@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hero Section</title>
     <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/home-bmi.css">
 </head>
 
 <body>
@@ -13,14 +14,58 @@
 
     <div class="hero">
         <div class="hero-content">
-            <h1>Welcome to Our Calculator Hub</h1>
+            <h1>Calculator Hub</h1>
             <p>Find the most accurate and easy-to-use calculators for all your needs, from BMI to Loan calculations.</p>
             <a href="#calculators" class="btn">Explore Calculators</a>
         </div>
     </div>
 
+    <!-- BMI Calculator -->
+    <section class="bmi-calc-sec">
+        <div class="container">
+            <div class="calc-zone">
+                <div class="calculator">
+                    <h2>BMI Calculator</h2>
+                    <label for="unit">Metrics</label>
+                    <select id="unit">
+                        <option value="kg">Kilograms</option>
+                        <option value="lbs">Pounds</option>
+                    </select>
+                    <label for="weight">Weight</label>
+                    <input type="number" id="weight" placeholder="Weight" required>
+                    <label for="Heightt">Height</label>
+                    <input type="number" id="height" placeholder="Height (cm)" required>
+
+                    <label for="gender" style="margin-top: 10px; display: block;">Gender</label>
+                    <select id="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+
+                    <button onclick="calculateBMI()">Calculate BMI</button>
+                    <button onclick="clearInputs()"
+                        style="width: 30%; background: #fff; color: black; margin-top: 10px;">Clear</button>
+                    <div id="result"></div>
+                </div>
+            </div>
+            <div class="content">
+                <h3>What is BMI?</h3>
+                <p>Body Mass Index (BMI) is a simple calculation using a person's height and weight. The formula is BMI
+                    = kg/m².</p>
+                <h3>BMI Categories:</h3>
+                <ul>
+                    <li>Underweight: BMI < 18.5</li>
+                    <li>Normal weight: BMI 18.5–24.9</li>
+                    <li>Overweight: BMI 25–29.9</li>
+                    <li>Obese: BMI 30 or greater</li>
+                </ul>
+                <p>Maintaining a healthy BMI is essential for overall well-being.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Calculator Section  -->
-    <section class="calculators-section">
+    <section class="calculators-section" id="calculators">
         <h2>Explore Our Health & Fitness Calculators</h2>
         <div class="calculator-grid">
             <div class="calculator-card">
@@ -197,6 +242,34 @@
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;
             });
+    </script>
+
+    <!-- JS Code for BMI Calculator  -->
+    <script>
+        function calculateBMI() {
+            let weight = parseFloat(document.getElementById('weight').value);
+            let height = parseFloat(document.getElementById('height').value) / 100;
+            let unit = document.getElementById('unit').value;
+            let gender = document.getElementById('gender').value;
+            if (!weight || !height) {
+                document.getElementById('result').innerHTML = 'Please enter valid values!';
+                return;
+            }
+            if (unit === 'lbs') {
+                weight = weight * 0.453592;
+            }
+            let bmi = (weight / (height * height)).toFixed(2);
+            let category = bmi < 18.5 ? 'Underweight' : bmi < 24.9 ? 'Normal weight' : bmi < 29.9 ? 'Overweight' : 'Obese';
+            document.getElementById('result').innerHTML = `BMI: ${bmi} (${category})`;
+        }
+
+        function clearInputs() {
+            document.getElementById('weight').value = '';
+            document.getElementById('height').value = '';
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('unit').selectedIndex = 0;
+            document.getElementById('gender').selectedIndex = 0;
+        }
     </script>
 
 </body>
