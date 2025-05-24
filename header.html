@@ -10,23 +10,32 @@
 <body>
     <header class="site-header">
         <div class="header-container">
-            <!-- Logo -->
-            <a href="/"><h1 class="logo">Calculator</h1></a>
+            <a href="/">
+                <h1 class="logo">Calculator</h1>
+            </a>
 
-            <!-- WhatsApp Button -->
-            <div class="header-menus">
+            <!-- Hamburger icon (mobile only) -->
+            <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+            <!-- Menu items -->
+            <nav class="header-menus" id="mobileMenu">
                 <a href="/calculator/bmicalc.html">BMI Calculator</a>
-                <a href="#calculators">All Calculators</a>
+                <a href="/#calculators">All Calculators</a>
                 <a href="/blog/all-blogs.html" class="blog-menu">Blogs</a>
-
-
                 <a href="https://wa.me/your-number" target="_blank" class="whatsapp-btn">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
                     Contact Us
                 </a>
-            </div>
+            </nav>
         </div>
     </header>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+    </script>
 </body>
 
 </html>

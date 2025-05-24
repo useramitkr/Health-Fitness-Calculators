@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lean Body Mass Calculator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
+            margin: 0;
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            background: #f0f4f8;
+        }
+
+        .calc-sec-default {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
             padding: 20px;
+            min-height: 100vh;
         }
 
         .container {
@@ -44,39 +53,39 @@
             background: white;
             color: #333;
             min-width: 300px;
+            margin: auto 0;
         }
 
-        .calculator h2, .content h3 {
+        .calculator h2,
+        .content h3 {
             text-align: center;
         }
 
-        .calculator input, .calculator button {
+        .form-group {
+            margin: 15px 0;
+        }
+
+        .calculator label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .calculator input,
+        .calculator select,
+        .calculator button {
             width: 100%;
             padding: 12px;
-            margin: 10px 0;
+            margin: 5px 0 10px;
             border: none;
             border-radius: 8px;
             font-size: 16px;
         }
 
-        .calculator input {
+        .calculator input,
+        .calculator select {
             background: rgba(255, 255, 255, 0.9);
             color: #333;
-        }
-
-        .gender-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .gender-container label {
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
 
         .calculator .calculate-btn {
@@ -92,11 +101,10 @@
         .calculator .clear-btn {
             background: white;
             color: black;
-            margin-top: 10px;
             width: 50%;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 10px auto 0;
+            cursor: pointer;
         }
 
         #result {
@@ -112,53 +120,183 @@
                 text-align: center;
             }
 
-            .gender-container {
-                flex-direction: column;
-            }
-
-            .calculator input, .calculator button {
+            .calculator input,
+            .calculator select,
+            .calculator button {
                 font-size: 14px;
                 padding: 10px;
             }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="calc-zone">
-            <div class="calculator">
-                <h2>Lean Body Mass Calculator</h2>
-                <input type="number" id="weight" placeholder="Weight (kg)" required>
-                <input type="number" id="height" placeholder="Height (cm)" required>
-                <div class="gender-container">
-                    <p>Gender</p>
-                    <label><input type="radio" name="gender" value="male" checked> Male</label>
-                    <label><input type="radio" name="gender" value="female"> Female</label>
+    <section class="calc-sec-default">
+        <div class="container">
+            <div class="calc-zone">
+                <div class="calculator">
+                    <h2>Lean Body Mass Calculator</h2>
+
+                    <div class="form-group">
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" id="weight" placeholder="Enter your weight" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="height">Height (cm)</label>
+                        <input type="number" id="height" placeholder="Enter your height" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" required>
+                            <option value="male" selected>Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+
+                    <button class="calculate-btn" onclick="calculateLBM()">Calculate</button>
+                    <button class="clear-btn" onclick="clearInputs()">Clear</button>
+
+                    <div id="result"></div>
                 </div>
-                <button class="calculate-btn" onclick="calculateLBM()">Calculate</button>
-                <button class="clear-btn" onclick="clearInputs()">Clear</button>
-                <div id="result"></div>
+            </div>
+
+            <div class="content">
+                <h3>What is Lean Body Mass?</h3>
+                <p>Lean Body Mass (LBM) is the weight of your body excluding fat. It includes muscles, bones, water, and
+                    other tissues.</p>
+                <h3>How is LBM Calculated?</h3>
+                <p>The most commonly used formulas for LBM estimation are:</p>
+                <ul>
+                    <li><strong>For Men:</strong> LBM = (0.407 × weight) + (0.267 × height) - 19.2</li>
+                    <li><strong>For Women:</strong> LBM = (0.252 × weight) + (0.473 × height) - 48.3</li>
+                </ul>
             </div>
         </div>
-        <div class="content">
-            <h3>What is Lean Body Mass?</h3>
-            <p>Lean Body Mass (LBM) is the weight of your body excluding fat. It includes muscles, bones, water, and other tissues.</p>
-            <h3>How is LBM Calculated?</h3>
-            <p>The most commonly used formulas for LBM estimation are:</p>
+    </section>
+
+    <section style="padding: 60px 20px; background-color: #f9f9f9;">
+        <div
+            style="max-width: 1150px; margin: auto; font-family: 'Poppins', sans-serif; color: #333; line-height: 1.7;">
+            <h2 style="color: #357ABD; font-size: 28px; margin-bottom: 20px;">Understanding BMI and Your Health</h2>
+            <p>
+                Body Mass Index (BMI) is more than just a number — it's a simple screening tool that helps indicate
+                whether a person is underweight, normal weight, overweight, or obese. While it doesn’t directly measure
+                body fat, BMI provides a reliable indicator of health risk in most individuals.
+            </p>
+
+            <p>
+                Maintaining a healthy weight is essential not only for your physical appearance but for your heart
+                health, mental well-being, and even longevity. However, many people misunderstand what BMI means and how
+                it should be interpreted. In this guide, we will break down everything you need to know about BMI — its
+                importance, limitations, and how you can take practical steps toward a healthier lifestyle.
+            </p>
+
+            <h3 style="color: #4a90e2;">Why Does BMI Matter?</h3>
             <ul>
-                <li><strong>For Men:</strong> LBM = (0.407 × weight) + (0.267 × height) - 19.2</li>
-                <li><strong>For Women:</strong> LBM = (0.252 × weight) + (0.473 × height) - 48.3</li>
+                <li><strong>Early Indicator:</strong> BMI can identify potential weight issues early.</li>
+                <li><strong>Heart Health:</strong> Higher BMIs are linked to increased risk of cardiovascular disease.
+                </li>
+                <li><strong>Accessibility:</strong> It’s a quick, affordable method that requires no lab testing.</li>
+                <li><strong>Public Health Monitoring:</strong> Used by healthcare systems to assess population health.
+                </li>
             </ul>
+
+            <h3 style="color: #4a90e2;">Limitations of BMI</h3>
+            <p>
+                While BMI is a helpful tool, it is not without flaws. It does not distinguish between muscle and fat
+                mass, nor does it account for differences in gender, age, or bone density. For example, athletes may
+                have a high BMI due to increased muscle mass, but this does not mean they are overweight in an unhealthy
+                sense.
+            </p>
+
+            <h3 style="color: #4a90e2;">Better Metrics to Consider</h3>
+            <p>
+                In combination with BMI, consider these additional metrics:
+            </p>
+            <ol>
+                <li><strong>Waist Circumference:</strong> High belly fat is a strong risk factor for heart disease.</li>
+                <li><strong>Body Fat Percentage:</strong> Gives more detail than BMI alone.</li>
+                <li><strong>Waist-to-Hip Ratio:</strong> Used to evaluate fat distribution.</li>
+            </ol>
+
+            <h2 style="margin-top: 40px; color: #357ABD;">Frequently Asked Questions (FAQ)</h2>
+
+            <h4>Q: Is BMI an accurate reflection of my health?</h4>
+            <p>
+                <strong>A:</strong> BMI is a general indicator and works well for the majority of adults. However, it’s
+                not a definitive diagnostic tool. Other factors like diet, activity level, and body composition should
+                also be considered.
+            </p>
+
+            <h4>Q: Can I have a normal BMI and still be unhealthy?</h4>
+            <p>
+                <strong>A:</strong> Yes. Someone can have a “normal” BMI but poor lifestyle habits, such as smoking,
+                stress, and inactivity, which could negatively impact health.
+            </p>
+
+            <h4>Q: Why does BMI not work well for athletes?</h4>
+            <p>
+                <strong>A:</strong> Because athletes often carry more muscle, which weighs more than fat. This may
+                result in a high BMI that doesn't accurately reflect their health or body fat percentage.
+            </p>
+
+            <h4>Q: How often should I check my BMI?</h4>
+            <p>
+                <strong>A:</strong> Checking BMI once every 6 months is sufficient for general monitoring unless your
+                healthcare provider suggests otherwise.
+            </p>
+
+            <h3 style="color: #4a90e2;">Practical Tips to Improve Your BMI</h3>
+            <p>
+                If you're looking to improve your BMI, focus on sustainable lifestyle changes:
+            </p>
+            <ul>
+                <li>Eat a balanced diet rich in vegetables, lean proteins, and whole grains.</li>
+                <li>Engage in regular physical activity — at least 150 minutes per week.</li>
+                <li>Stay hydrated and avoid sugary beverages.</li>
+                <li>Get adequate sleep and manage stress levels.</li>
+            </ul>
+
+            <h3 style="color: #4a90e2;">Conclusion</h3>
+            <p>
+                BMI serves as a practical and accessible metric to gauge your health, especially when combined with
+                other health indicators. However, it's crucial not to obsess over a single number. Health is holistic —
+                physical, mental, and emotional wellness all matter. Use BMI as one tool in your toolkit to create a
+                healthier, more vibrant you.
+            </p>
+
+            <p>
+                Remember: Always consult your doctor or healthcare provider before making major changes to your diet,
+                exercise, or lifestyle — especially if you have existing health conditions.
+            </p>
         </div>
-    </div>
+    </section>
+
+    <!-- CTA Section with Inline CSS -->
+    <section
+        style="background: linear-gradient(135deg, #f5faff, #dbeeff); padding: 50px 20px; text-align: center; border-radius: 20px; margin: 0px auto 0 auto; max-width: auto; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); font-family: 'Poppins', sans-serif;">
+        <div>
+            <h2 style="font-size: 28px; color: #1e4779; margin-bottom: 10px;">Explore Other Calculators</h2>
+            <p style="font-size: 16px; margin-bottom: 30px; color: #555;">Discover more tools to help you stay informed
+                and healthy.</p>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
+                <a href="/#calculators"
+                    style="background-color: #4a90e2; color: white; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: background 0.3s ease;">Explore
+                    Other Calculator</a>
+            </div>
+        </div>
+    </section>
+
     <script>
         function calculateLBM() {
             let weight = parseFloat(document.getElementById('weight').value);
             let height = parseFloat(document.getElementById('height').value);
-            let gender = document.querySelector('input[name="gender"]:checked').value;
+            let gender = document.getElementById('gender').value;
 
             if (!weight || !height) {
-                document.getElementById('result').innerHTML = 'Enter valid values!';
+                document.getElementById('result').innerHTML = 'Please enter valid weight and height!';
                 return;
             }
 
@@ -173,9 +311,12 @@
         }
 
         function clearInputs() {
-            document.querySelectorAll('.calculator input').forEach(input => input.value = '');
+            document.getElementById('weight').value = '';
+            document.getElementById('height').value = '';
+            document.getElementById('gender').value = 'male';
             document.getElementById('result').innerHTML = '';
         }
     </script>
 </body>
+
 </html>
