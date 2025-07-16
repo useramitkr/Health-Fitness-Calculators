@@ -31,7 +31,18 @@ footer {
 }
 
 .copyright {
-    margin-top: 10px;
+    margin-top: 30px;
     font-size: 14px;
     opacity: 0.8;
+    color: rgb(214, 212, 212);
+}
+
+.copyright a {
+    text-decoration: none;
+    color: rgb(214, 212, 212);
+    text-transform: uppercase;
+}
+
+.copyright a:hover {
+    color: #4aa3df;
 }
